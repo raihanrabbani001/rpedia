@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rpedia/view/login_view.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthenticationView extends StatelessWidget {
-  const AuthenticationView({super.key});
+  const AuthenticationView({super.key, required this.child});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      height: 400,
-    width: 300,
+    bool isLoginView = (GoRouterState.of(context).path.toString() == '/login');
+    return Container(
+      height: isLoginView ? 450 : 500,
+    width: isLoginView ? 300 : 800,
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       decoration: BoxDecoration(
         color: colorScheme.surface,
@@ -27,7 +28,7 @@ class AuthenticationView extends StatelessWidget {
           ), //BoxShadow/BoxShadow
         ],
       ),
-      child: const LoginView(),
+      child: child,
     );
   }
 }
